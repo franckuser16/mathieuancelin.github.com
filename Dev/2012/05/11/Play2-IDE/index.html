@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Play 2 IDE</title>
+    <meta name="description" content="This article is about a Play 2 plugin for Sublime Text 2">
+    <meta name="author" content="Mathieu Ancelin">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/js/clippy.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Le fav and touch icons -->
+ 
+    <link rel="shortcut icon" href="/favicon.png">
+ <!-- Update these with your own images    
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+      <script type="text/javascript" src="/js/twitter.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/js/konami.js"></script>
+      <script type="text/javascript" src="/js/clippy.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/"><h1 style="color: #FFFFFF;">A big cup of Java</h1></a>
+          <ul class="nav">
+            <!--
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+-->
+            <li><a href="/about.html"><img src="/mathieu_32.png" alt="About me"></a></li>
+            <li><a href="/atom.xml"><img src="/rss_32.png"><!--RSS--></a></li>
+            <li><a href="https://twitter.com/#!/TrevorReznik"><img src="/twitter_32.png"><!--@TrevorReznik--></a></li>
+            <li><a href="https://github.com/mathieuancelin"><img src="/github_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="http://fr.linkedin.com/pub/mathieu-ancelin/44/5a0/822"><img src="/linkedin_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new" target="_blank"><img src="/email_32.png"><!--Ask me anything--></a></li>
+            <li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Play 2 IDE</h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>Maybe you already know but I&#8217;m a big Play! framework fan. I just love the way you can easily and naturally build true webapps very quickly. Play! framework provides some nice ways to edit Play! apps in major IDE with the <code>netbeansify</code>, <code>eclipsify</code> and <code>idealize</code> commands. However, such IDE are often well known for being &#8216;a little bit&#8217; heavy (a nice way to say that your brand new Macbook Pro is running like your old Powerbook G3). The Play! framework guys are known to use simple text editors (like TextMate) when they&#8217;re doing demos because the framework allows you the skip IDEs because of it&#8217;s incremental compilation feature, inbrowser error reporting, etc &#8230;</p>
+
+<p>Since last August, I&#8217;m a SublimeText 2 user. I really like this text editor because it&#8217;s lightweight, powerful, customizable, etc &#8230; I started to use it instead of TextMate to write my Play! applications and I was very happy with that. I installed some nice plugins like <code>BracketHighLighter</code>, <code>ZenCoding</code>, <code>SublimeCodeIntel</code>, <code>SublimeJava</code>. I even gave a shot at &#8216;Ensime&#8217; integration to get Scala compiler error reporting in my text editor.</p>
+
+<p>Then, a little bit earlier this week, Guillaume Bort, the creator of Play! framework started to write a SublimeText 2 plugin for Play 2. The plugin had syntax highlighting for configuration files, routes files, scala templates and some scala snippets for Actions, Controllers and Globals. As I like the snippet feature a lot (because I always forget how to do some specific stuff), I started to add my own snippets to Guillaume&#8217;s plugin so I will be able to code a lot much faster (I hope ;-). Of course I made my code available on github.</p>
+
+<p>Right now, you can find the plugin here :</p>
+<a href='https://github.com/mathieuancelin/play2-sublimetext2/tree/snippets'>https://github.com/mathieuancelin/play2-sublimetext2/tree/snippets</a>
+<p>You just have to clone it inside your SublimeText Packages directory to make it work :</p>
+
+<pre><code>$ cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/ 
+# or $ cd ~/.config/sublime-text-2/Packages/
+$ git clone https://github.com/mathieuancelin/play2-sublimetext2.git play2
+$ cd play2
+$ git checkout -b snippets origin/snippets</code></pre>
+
+<p>The following snippets are available :</p>
+
+<ul>
+<li><code>action ➝</code> : Creates an <code>Action</code> (scala &amp; java)</li>
+
+<li><code>actor ➝</code> : Get an actor reference from <code>Akka</code> (scala &amp; java)</li>
+
+<li><code>aync ➝</code> : Creates an <code>Async</code> result (scala &amp; java)</li>
+
+<li><code>bindform ➝</code> : Creates form &#8216;binding from request&#8217; structure (scala &amp; java)</li>
+
+<li><code>cacheget ➝</code> : Retrieve value from Cache API (scala &amp; java)</li>
+
+<li><code>cacheset ➝</code> : Put value in the Cache (scala &amp; java)</li>
+
+<li><code>callbackenum ➝</code> : Creates an <code>Enumerator</code> from a callback (scala)</li>
+
+<li><code>controller ➝</code> : Creates a <code>Controller</code> structure (scala &amp; java)</li>
+
+<li><code>dbconn ➝</code> : Creates a <code>DB.withConnection</code> structure (scala)</li>
+
+<li><code>dbtrans ➝</code> : Creates a <code>DB.withTransaction</code> structure (scala &amp; java)</li>
+
+<li><code>entity ➝</code> : Creates a <code>Ebean</code> entity structure (java)</li>
+
+<li><code>pforeach ➝</code> : Creates an foreach structure in templates (html)</li>
+
+<li><code>form ➝</code> : Creates a simple form structure (scala &amp; java)</li>
+
+<li><code>fromconf ➝</code> : Creates a &#8216;get value from config file&#8217; structure (scala &amp; java)</li>
+
+<li><code>flatmapthatshit ➝</code> : Just <code>flatmap</code> that shit (scala)</li>
+
+<li><code>global ➝</code> : Creates a <code>Global</code> object structure (scala &amp; java)</li>
+
+<li><code>htmlform ➝</code> : Creates a simple html form using Play! helpers (html)</li>
+
+<li><code>model ➝</code> : Creates a JDBC model structure (scala)</li>
+
+<li><code>ok ➝</code> : Creates a <code>ok</code> result (scala &amp; java)</li>
+
+<li><code>pushenum ➝</code> : Creates an imperative <code>Enumerator</code> with a hub for multiple <code>Iteratee</code> consumption (scala)</li>
+
+<li><code>redirect ➝</code> : Creates a redirection <code>Result</code> (scala &amp; java)</li>
+
+<li><code>schedule ➝</code> : Creates a scheduled task (scala &amp; java)</li>
+
+<li><code>sql ➝</code> : Creates a <code>SQL(...)</code> statement structure (scala)</li>
+
+<li><code>sessionget ➝</code> : Retrieve a value from current session (scala &amp; java)</li>
+
+<li><code>sessionset ➝</code> : Put value in current session (scala &amp; java)</li>
+
+<li><code>sse ➝</code> : Creates a SSE action (scala)</li>
+
+<li><code>sout ➝</code> : Creates a <code>System.out.println()</code></li>
+
+<li><code>tupleform ➝</code> : Creates a multiple input form (scala)</li>
+
+<li><code>template ➝</code> : Creates a scala template structure (html)</li>
+
+<li><code>websocket ➝</code> : Creates a <code>WebSocket</code> Action (scala &amp; java)</li>
+</ul>
+
+<p>These snippets are just stuff that I use in my projects and I&#8217;m sure that some very useful things are missing. So don&#8217;t hesitate to fork my project and add some useful stuff to the plugin. I will also talk to Guillaume to see if it&#8217;s possible to push some of these snippet on the main repo if he likes it.</p>
+
+<p><strong>UPDATE</strong> : Guillaume just merged my pull requests, so you can use his repo to install the snippets instead of mine.</p>
+<a href='https://github.com/guillaumebort/play2-sublimetext2'>https://github.com/guillaumebort/play2-sublimetext2</a>
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/Dev/2012/05/01/how-to-build-weld-osgi" title="How to build Weld-OSGi">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/Dev/2012/05/21/OSGiCDI-integration-rfp" title="OSGi/CDI integration RFP available for public comments">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'mathieuancelingithubblog'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+ 
+  <img id="math" src="/mathieu-avatar.jpg"></img>
+    <h3><a href="/about.html">About Mathieu ANCELIN</a></h3>
+    <h4><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new"  target="_blank">Ask me anything</a></h4>
+    <h4><a href="https://twitter.com/#!/TrevorReznik">@TrevorReznik</a></h4>
+    <h4><a href="https://github.com/mathieuancelin">mathieuancelin on github</a></h4>
+    <h4><a href="/atom.xml">RSS feed</a></h4>
+    <h4><a href="/archive.html">All posts</a></h4>
+    <h4><a href="/tags.html">Tags</a></h4>
+    <hr>
+    <h4>Published</h4>
+    <div class="date"><span>11 May 2012</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Play 2-ref">Play 2 <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#SublimeText 2-ref">SublimeText 2 <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#IDE-ref">IDE <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+   
+
+  </div>
+</div>
+
+
+        <script>
+            tw.search('from:trevorreznik',function(data){
+                for(var i = 0; i <5; i+=1){
+                    var p = document.createElement('tr');
+                    p.innerHTML = '<td><span><b>' + data[i].user + '</b></span> &raquo; ' + data[i].msg + '</td>' ;
+                    document.querySelector('#from_TrevorReznik').appendChild(p);
+                }
+            });
+            var konami = new Konami()
+            konami.code = function() {
+                $('#math').attr('src', '/nyantocat.gif')
+                   clippy.load('Clippy', function(agent) {
+                      // Do anything with the loaded agent
+                      agent.show()
+
+                      setInterval(doSomething, 10000)
+
+                      function doSomething() {
+                          agent.animate()
+                      }
+                });
+            }
+            konami.load()
+            
+      </script>
+      </div>
+
+      <footer>
+        <p>&copy; Mathieu Ancelin 2010 - 2012 
+          <!--with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>-->
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+    <div id="preload">
+      <img src="/nyantocat.gif" width="1" height="1" />
+    </div>
+    
+  </body>
+</html>
+

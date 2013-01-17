@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to build Weld-OSGi</title>
+    <meta name="description" content="This article explains how to build Weld-OSGi from sources">
+    <meta name="author" content="Mathieu Ancelin">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/js/clippy.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Le fav and touch icons -->
+ 
+    <link rel="shortcut icon" href="/favicon.png">
+ <!-- Update these with your own images    
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+      <script type="text/javascript" src="/js/twitter.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/js/konami.js"></script>
+      <script type="text/javascript" src="/js/clippy.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/"><h1 style="color: #FFFFFF;">A big cup of Java</h1></a>
+          <ul class="nav">
+            <!--
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+-->
+            <li><a href="/about.html"><img src="/mathieu_32.png" alt="About me"></a></li>
+            <li><a href="/atom.xml"><img src="/rss_32.png"><!--RSS--></a></li>
+            <li><a href="https://twitter.com/#!/TrevorReznik"><img src="/twitter_32.png"><!--@TrevorReznik--></a></li>
+            <li><a href="https://github.com/mathieuancelin"><img src="/github_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="http://fr.linkedin.com/pub/mathieu-ancelin/44/5a0/822"><img src="/linkedin_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new" target="_blank"><img src="/email_32.png"><!--Ask me anything--></a></li>
+            <li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>How to build Weld-OSGi</h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>Maybe you already heard about Weld-OSGi before, lately I&#8217;ve done some presentations about it in Java User Groups and at some conferences like Devoxx France, JAX London or JUG Summer Camp. If you want to know more about it, you can check the slides out :</p>
+<script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='4f92ccc7cb4cd0001f01504b' data-ratio='1.6'> </script>
+<p>The only problem about Weld-OSGi is that we broke a public Weld API and because of that, the code of the project isn&#8217;t merged into Weld core because of backward compatibility. But don&#8217;t worry, it will be soon ;-)</p>
+
+<p>In this post, I will explain how to build a version of Weld with Weld-OSGi inside. Then you will be able to do stuff like :</p>
+<iframe src='http://www.youtube.com/embed/R4MbRn46-AA' frameborder='0' height='315' width='560'> </iframe>
+<p>In a future post, I will explain how to integrate it inside JBoss AS7 to create hybrid Java EE/OSGi applications like demoed at DevoxxFR :</p>
+<iframe src='http://www.youtube.com/embed/zbgZp15Y-Eo' frameborder='0' height='315' width='420'> </iframe>
+<h1 id='lets_get_started'>Let&#8217;s get started</h1>
+
+<p>In the following script samples, let&#8217;s assume <code>${START}</code> is the place where you are going to work, where you are going to clone git repos.</p>
+<script src='https://gist.github.com/2569318.js?file=blog.sh'> </script>
+<p>And you&#8217;re done, quite easy huh :-)</p>
+
+<h1 id='lets_play'>Let&#8217;s play</h1>
+
+<p>If you want to play with the Weld-OSGi samples you just have to build&#8217;em</p>
+<script src='https://gist.github.com/2569318.js?file=blog1.sh'> </script>
+<p>and run the OSGi container.</p>
+<script src='https://gist.github.com/2569318.js?file=blog2.sh'> </script>
+<p>Then you can list bundles installed with <code>ps</code> command and start them with <code>start/stop</code> command.</p>
+
+<p>If you want to embed Weld-OSGi somewhere, important binaries are in core module :</p>
+
+<ul>
+<li>
+<p>api</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-core-api-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>ee (for hybrid Java EE apps)</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-ee-integration-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>extension</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-core-extension-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>integration</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-core-integration-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>mandatory</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-core-mandatory-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+
+<li>
+<p>spi</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>weld-osgi-core-spi-1.2.0-SNAPSHOT.jar</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>You can find how to use Weld-OSGi for pure OSGi application development in the &#8216;examples&#8217; directory. You can find how to use Weld-OSGi in an OSGi container in the samples, for instance inside a felix container :</p>
+
+<ul>
+<li>
+<p>core/environments/osgi/examples</p>
+
+<ul>
+<li>
+<p>container-felix</p>
+
+<ul>
+<li>
+<p>target</p>
+
+<ul>
+<li>
+<p>weld-osgi-container-felix-1.2.0-SNAPSHOT-all</p>
+
+<ul>
+<li>weld-osgi-container-felix-1.2.0-SNAPSHOT</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2012/04/30/cdi-par-la-pratique" title="CDI par la pratique">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/Dev/2012/05/11/Play2-IDE" title="Play 2 IDE">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'mathieuancelingithubblog'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+ 
+  <img id="math" src="/mathieu-avatar.jpg"></img>
+    <h3><a href="/about.html">About Mathieu ANCELIN</a></h3>
+    <h4><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new"  target="_blank">Ask me anything</a></h4>
+    <h4><a href="https://twitter.com/#!/TrevorReznik">@TrevorReznik</a></h4>
+    <h4><a href="https://github.com/mathieuancelin">mathieuancelin on github</a></h4>
+    <h4><a href="/atom.xml">RSS feed</a></h4>
+    <h4><a href="/archive.html">All posts</a></h4>
+    <h4><a href="/tags.html">Tags</a></h4>
+    <hr>
+    <h4>Published</h4>
+    <div class="date"><span>01 May 2012</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Weld-OSGi-ref">Weld-OSGi <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#OSGi-ref">OSGi <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#Weld-ref">Weld <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#CDI-ref">CDI <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+   
+
+  </div>
+</div>
+
+
+        <script>
+            tw.search('from:trevorreznik',function(data){
+                for(var i = 0; i <5; i+=1){
+                    var p = document.createElement('tr');
+                    p.innerHTML = '<td><span><b>' + data[i].user + '</b></span> &raquo; ' + data[i].msg + '</td>' ;
+                    document.querySelector('#from_TrevorReznik').appendChild(p);
+                }
+            });
+            var konami = new Konami()
+            konami.code = function() {
+                $('#math').attr('src', '/nyantocat.gif')
+                   clippy.load('Clippy', function(agent) {
+                      // Do anything with the loaded agent
+                      agent.show()
+
+                      setInterval(doSomething, 10000)
+
+                      function doSomething() {
+                          agent.animate()
+                      }
+                });
+            }
+            konami.load()
+            
+      </script>
+      </div>
+
+      <footer>
+        <p>&copy; Mathieu Ancelin 2010 - 2012 
+          <!--with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>-->
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+    <div id="preload">
+      <img src="/nyantocat.gif" width="1" height="1" />
+    </div>
+    
+  </body>
+</html>
+

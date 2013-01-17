@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JavaOne 2010 : Jour 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Mathieu Ancelin">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/js/clippy.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Le fav and touch icons -->
+ 
+    <link rel="shortcut icon" href="/favicon.png">
+ <!-- Update these with your own images    
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+      <script type="text/javascript" src="/js/twitter.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/js/konami.js"></script>
+      <script type="text/javascript" src="/js/clippy.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/"><h1 style="color: #FFFFFF;">A big cup of Java</h1></a>
+          <ul class="nav">
+            <!--
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+-->
+            <li><a href="/about.html"><img src="/mathieu_32.png" alt="About me"></a></li>
+            <li><a href="/atom.xml"><img src="/rss_32.png"><!--RSS--></a></li>
+            <li><a href="https://twitter.com/#!/TrevorReznik"><img src="/twitter_32.png"><!--@TrevorReznik--></a></li>
+            <li><a href="https://github.com/mathieuancelin"><img src="/github_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="http://fr.linkedin.com/pub/mathieu-ancelin/44/5a0/822"><img src="/linkedin_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new" target="_blank"><img src="/email_32.png"><!--Ask me anything--></a></li>
+            <li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>JavaOne 2010 : Jour 2</h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>Bon, le jetlag a encore gagné, a peine 5 heures de sommeil et je suis réveillé après une soirée pourtant assez éprouvante. Quoi qu&#8217;il en soit, une douche et direction le petit déjeuner au Hilton où bagels et cakes en tous genre m&#8217;attendent.</p>
+
+<p>La première session de la journée, c&#8217;est avec le JDK 7 et Mark Reynolds que je vais la passer. Direction la &#8220;Grand Ballroom&#8221; du Hilton qui ne serait absolument pas déplacée dans un film hollywoodien ou dans certaines séries portant sur la jeunesse dorée américaine.</p>
+<a href='http://picasaweb.google.com/lh/photo/zyjCW7XDyu7xC7ip78mjbQ?feat=embedwebsite'><img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ44FWSnadI/AAAAAAAAAd8/i2s4W1D_HdI/s400/IMG_0278.JPG' /></a>
+<p>Mark commence sa présentation avec un petit récapitulatif des différentes version du JDK au court des années pour arriver à l&#8217;arlésienne qu&#8217;est le JDK 7. Il aborde les différents points normalement couverts par ce nouveau JDK, notamment les évolutions mineures de langage avec le projet Coin, les closures avec le projet Lambda, la modularité dans Java avec le projet Jigsaw et la disparition du &#8220;Classpath Hell&#8221;, le projet Da Vinci Machine et le support du InvokeDynamic, le projet Fork/Join pour l&#8217;utilisation simplifiée du multi-threading, etc &#8230;</p>
+
+<p>Cependant, tout n&#8217;est pas fini, il y a encore beaucoup de travail à faire pour pouvoir distribuer ce JDK. Deux solutions s&#8217;offrent aux ingénieurs d&#8217;Oracle. Distribuer le JDK 7 avec toutes les features pour milieu 2012, ou distribuer le JDK 7 sans Jigsaw et Lambda mi-2011 et distribuer une V8 fin 2012 avec ces projets intégrés.</p>
+
+<p>Visiblement, le plan B semble avoir convaincu le plus grand nombre et c&#8217;est celui qui sera retenu. D&#8217;ailleurs Oracle semble vouloir adopter la philosophie &#8220;release early, release often&#8221; pour le JDK, ce qui n&#8217;est pas un mal. Vivement ces nouveaux JDK, voire s&#8217;ils nous simplifient la vie :)</p>
+
+<p>Maintenant direction l&#8217;Hôtel Parc 55 pour une petite session sur Groovy, le langage dynamique au goût de Java ++. Cette session a surtout retracé les évolutions majeures apparues dans le langage au cours des dernières version ainsi que les orientations futures du langage. On notera tout particulièrement les amélioration apportées aux niveau des DSL avec la GEP-3 (Groovy Enhancement Proposal) permettant d&#8217;écrire des mini langage quasiment calqués sur du langage naturel :</p>
+<script src='https://gist.github.com/2569986.js?file=dsl.groovy'> </script>
+<p>J&#8217;espère vraiment pouvoir utiliser ce genre de truc un jour dans mes projets :) (cette dernière phrase est complètement dénuée de sens caché concernant mes futures envies de mission)</p>
+
+<p>La pression monte, il est maintenant l&#8217;heure de mon premier Hands On Lab avec Alexis Moussine-Pouchkine, je me dirige vers la Plaza A du Hilton pour parler de Java EE 6 et de bookstore. Malheureusement, rien de se passe comme prévu et le labs doit être repoussé dans l&#8217;après-midi en raison de problèmes techniques avec les machines que l&#8217;équipe s&#8217;échine à remettre sur pied. Ca commence bien :) Pourtant quelques heures plus tard, les machines ne fonctionnent toujours pas comme voulues et Alexis décide de faire les exercice du labs sur le vidéo projecteur tandis que les gens posent des question. Dommage !</p>
+<a href='http://picasaweb.google.com/lh/photo/vnw74GZDZ6D8ICNc21JFTg?feat=embedwebsite'><img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ43q_BuYLI/AAAAAAAAAdc/BBy7NFo3hFA/s400/IMG_0282.JPG' height='300' width='400' /></a>
+<p>17 heures, l&#8217;heure de la keynote Java, direction le Moscone Center, décidément la JavaOne nouvelle formule aura l&#8217;avantage de faire marcher les geeks. Les premiers sur scène sont les gens d&#8217;Intel qui n&#8217;ont pas vraiment dit de choses intéressantes. A part répéter qu&#8217;avec leur matériel, les serveurs d&#8217;applications cassent tous les records de vitesse rien à se mettre sous la dent à ce niveau là. Puis entre en scène Thomas Kurian qui, au fil des démos présente le futur de Java. Durant cette keynote, Kurian réaffirme l&#8217;engagement d&#8217;Oracle envers les projet Java clé et ce n&#8217;est pas un mal, les gens en ont besoin.</p>
+<a href='http://picasaweb.google.com/lh/photo/Rm4WKTMjNLqDDgo2t8cE9w?feat=embedwebsite'><img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ43aPyN7-I/AAAAAAAAAdI/oCFUgoZVnuw/s400/IMG_0283.JPG' /></a>
+<p>Les différentes démos sont exécutées sans problème particulier ce qui ne semblait pas gagné d&#8217;avance (une des présentatrice était apparemment une spécialiste de la loi de Murphy). La démo sur le futur JavaFX est très sexy et on apprend en même temps que le langage va disparaitre au profit d&#8217;une API Java standard compatible avec les nouveaux standards du net.</p>
+
+<p>De même HK2 et GlassFish sont cités et ce dernier bénéficie même d&#8217;une démo live. Surement une des meilleurs keynote de la semaine. Chapeau :)</p>
+
+<p>Il est maintenant l&#8217;heure des BOF et je me dirige vers la salle ou à lieu la présentation sur le framework Play! Etant un grand fan du framework, je ne suis pas totalement objectif mais les démos étaient vraiment bluffantes et tout en restant extrêmement simples à écrire. Si vous cherchez à écrire une application web très rapidement, il n&#8217;y a plus a chercher, Play est là pour ça. Continuez comme ca les gars.</p>
+
+<p>Une dernière BOF sur les différentes implémentations de CDI ainsi que leur futur et je rentre me coucher, exténué par cette journée et le décalage horaire.</p>
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2010/10/05/javaone-2010--jour-1" title="JavaOne 2010 : Jour 1">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/2010/10/05/javaone-2010--jour-3" title="JavaOne 2010 : Jour 3">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'mathieuancelingithubblog'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+ 
+  <img id="math" src="/mathieu-avatar.jpg"></img>
+    <h3><a href="/about.html">About Mathieu ANCELIN</a></h3>
+    <h4><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new"  target="_blank">Ask me anything</a></h4>
+    <h4><a href="https://twitter.com/#!/TrevorReznik">@TrevorReznik</a></h4>
+    <h4><a href="https://github.com/mathieuancelin">mathieuancelin on github</a></h4>
+    <h4><a href="/atom.xml">RSS feed</a></h4>
+    <h4><a href="/archive.html">All posts</a></h4>
+    <h4><a href="/tags.html">Tags</a></h4>
+    <hr>
+    <h4>Published</h4>
+    <div class="date"><span>05 October 2010</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#JavaOne-ref">JavaOne <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+   
+
+  </div>
+</div>
+
+
+        <script>
+            tw.search('from:trevorreznik',function(data){
+                for(var i = 0; i <5; i+=1){
+                    var p = document.createElement('tr');
+                    p.innerHTML = '<td><span><b>' + data[i].user + '</b></span> &raquo; ' + data[i].msg + '</td>' ;
+                    document.querySelector('#from_TrevorReznik').appendChild(p);
+                }
+            });
+            var konami = new Konami()
+            konami.code = function() {
+                $('#math').attr('src', '/nyantocat.gif')
+                   clippy.load('Clippy', function(agent) {
+                      // Do anything with the loaded agent
+                      agent.show()
+
+                      setInterval(doSomething, 10000)
+
+                      function doSomething() {
+                          agent.animate()
+                      }
+                });
+            }
+            konami.load()
+            
+      </script>
+      </div>
+
+      <footer>
+        <p>&copy; Mathieu Ancelin 2010 - 2012 
+          <!--with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>-->
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+    <div id="preload">
+      <img src="/nyantocat.gif" width="1" height="1" />
+    </div>
+    
+  </body>
+</html>
+

@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    
+    <meta name="author" content="Mathieu Ancelin">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/js/clippy.css" rel="stylesheet" type="text/css" media="all">
+    <!-- Le fav and touch icons -->
+ 
+    <link rel="shortcut icon" href="/favicon.png">
+ <!-- Update these with your own images    
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+      <script type="text/javascript" src="/js/twitter.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/js/konami.js"></script>
+      <script type="text/javascript" src="/js/clippy.min.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/"><h1 style="color: #FFFFFF;">A big cup of Java</h1></a>
+          <ul class="nav">
+            <!--
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+-->
+            <li><a href="/about.html"><img src="/mathieu_32.png" alt="About me"></a></li>
+            <li><a href="/atom.xml"><img src="/rss_32.png"><!--RSS--></a></li>
+            <li><a href="https://twitter.com/#!/TrevorReznik"><img src="/twitter_32.png"><!--@TrevorReznik--></a></li>
+            <li><a href="https://github.com/mathieuancelin"><img src="/github_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="http://fr.linkedin.com/pub/mathieu-ancelin/44/5a0/822"><img src="/linkedin_32.png"><!--mathieuancelin on github--></a></li>
+            <li><a href="https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new" target="_blank"><img src="/email_32.png"><!--Ask me anything--></a></li>
+            <li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1> </h1>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <div class='row'>
+  <div class='span8'>
+  <div id='home'>
+    <div id='post'>
+        
+            <h3><a href='/Dev/2012/11/15/weld-osgi-in-action'>15 Nov 2012 : Weld-OSGi in Action</a></h3>
+            <p>You can find the slides of the presentation I did at Devoxx this year here</p>
+<script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='bc915330117d01300440123139154813' data-ratio='1.77777777777778'> </script>
+<p>The code for the demo is available on my github account</p>
+<a href='https://github.com/mathieuancelin/demo-devoxx2012'>https://github.com/mathieuancelin/demo-devoxx2012</a>
+            <br />
+            <a href='/Dev/2012/11/15/weld-osgi-in-action'>comments &raquo;</a>
+            <br />
+            <hr style='border: 1px; border-color: #cccccc; border-style: dashed; ' />
+            <br />
+        
+            <h3><a href='/Dev/2012/09/19/play2-cdi'>19 Sep 2012 : How to use CDI in a Play 2 app</a></h3>
+            <p>As you may know, I really love dependency injection and in Java EE project I tend to use it a lot. I&#8217;m also involved in the <a href='http://jcp.org/en/jsr/detail?id=346'>CDI 1.1 specification</a> and the <a href='http://seamframework.org/Weld'>JBoss Weld</a> project. You also know that I&#8217;m a big fan of <a href='http://www.playframework.org/'>Play! framework</a> (both version 1 and 2) .</p>
+
+<p>A few days ago, I saw a tweet from <a href='https://twitter.com/guillaumebort/status/246614894663827456'>Guillaume Bort</a> explaining how to integrate Spring in a Play 2 application (based on the work done from <a href='https://github.com/playframework/Play20/pull/365'>https://github.com/playframework/Play20/pull/365</a> ). As I already created a Play plugin to <a href='https://github.com/mathieuancelin/play-cdi'>use CDI in a Play 1 application</a>, I wrote a sample application showing how to use CDI in a Play 2 application, based on Guillaume&#8217;s sample app (thanks for the tip Guillaume). I&#8217;m not sure that it is really useful to use CDI in Play application, but here is how to do it anyway.</p>
+
+<p>You can do the same on your app if your using Play 2.1 (you&#8217;ll have to <a href='https://github.com/playframework/Play20/wiki/BuildingFromSource'>build it from sources</a>)</p>
+
+<p>First, you need to add the Weld SE dependency. Here we use Weld SE because it&#8217;s really easy to bootstrap it programmatically. In the <code>project/Build.scala</code> file, add a dependency to <code>weld-se</code></p>
+<script src='https://gist.github.com/3749569.js?file=Build.scala'> </script>
+<p>You also need to add an empty (or not) <code>beans.xml</code> file in your Play 2 app. so Weld will be able to boot. Just create a <code>META-INF</code> folder in the <code>conf</code> and create an empty <code>beans.xml</code> inside.</p>
+<img src='/beans.jpg' />
+<p>Then, you need to use dynamic controller dispatching in your application so Weld will be able to create the controller instances for you. To do that, just prefix your controller class name with the <code>@</code> symbol in the <code>routes</code> file</p>
+<script src='https://gist.github.com/3749569.js?file=routes'> </script>
+<p>When you do that, the controllers instances management will be delegated to the <code>Global</code> object of your application. Here is an implementation of the <code>Global</code> using Weld</p>
+<script src='https://gist.github.com/3749569.js?file=Global.java'> </script>
+<p>Now, every class in your application is considered as a bean. If you want to exclude some classes, you need to write a CDI extension to veto bean types or you can use libraries like <a href='http://www.seamframework.org/Seam3/Solder'>Seam Solder</a> or <a href='https://cwiki.apache.org/DeltaSpike/'>DeltaSpike project</a> to do the job. So we can write a basic service like the following</p>
+<script src='https://gist.github.com/3749569.js?file=HelloService.java'> </script>
+<p>and use it in a Java controller</p>
+<script src='https://gist.github.com/3749569.js?file=Application.java'> </script>
+<p>or even in a Scala controller</p>
+<script src='https://gist.github.com/3749569.js?file=ScalaController.scala'> </script>
+<p>Note that the controller is a class and not an object. If your controller is an object you won&#8217;t be able to write something like the following in yoiur <code>routes</code> file</p>
+<script src='https://gist.github.com/3749569.js?file=routes2'> </script>
+<p>As you may have noticed, you can&#8217;t use web related scope with this implementation. To do so, you need to create a CDI extension that will provide a RequestScoped related context and handle requests from <code>Global</code> object to feed that context. I will try to write a blog post about it later.</p>
+
+<p>You can find the sample application <a href='https://github.com/mathieuancelin/play2-cdi'>here</a></p>
+
+<p>UPDATE : I updated my sample app to use CDI Events combined with Iteratees and SSE from both Scala and Java</p>
+<a href='https://gist.github.com/3755757'>https://gist.github.com/3755757</a><hr />
+            <br />
+            <a href='/Dev/2012/09/19/play2-cdi'>comments &raquo;</a>
+            <br />
+            <hr style='border: 1px; border-color: #cccccc; border-style: dashed; ' />
+            <br />
+        
+            <h3><a href='/Dev/2012/07/03/cdi-par-la-pratique-le-retour'>03 Jul 2012 : CDI par la pratique, le retour</a></h3>
+            <p>The videos from my CDI presentation with Antoine Sabot-Durant at Devoxx France have been released.</p>
+
+<p>(The Seam Social project has become Agorava project =&gt; http://agorava.org)</p>
+<object height='395' width='395'>
+  <param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' />
+  <param name='allowFullScreen' value='true' />
+  <param name='wmode' value='direct' />
+  <param name='bgcolor' value='#222222' />
+  <param name='flashVars' value='sv=true&amp;pageId=3339' />
+  <embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;pageId=3339' bgcolor='#222222' width='395' />
+</object><object height='395' width='395'>
+  <param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' />
+  <param name='allowFullScreen' value='true' />
+  <param name='wmode' value='direct' />
+  <param name='bgcolor' value='#222222' />
+  <param name='flashVars' value='sv=true&amp;pageId=3347' />
+  <embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;pageId=3347' bgcolor='#222222' width='395' />
+</object><object height='395' width='395'>
+  <param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' />
+  <param name='allowFullScreen' value='true' />
+  <param name='wmode' value='direct' />
+  <param name='bgcolor' value='#222222' />
+  <param name='flashVars' value='sv=true&amp;pageId=3348' />
+  <embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;pageId=3348' bgcolor='#222222' width='395' />
+</object>
+<p>my slides are here :</p>
+<script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='4f92b1d7c9c654002201130d' data-ratio='1.7297297297297298'> </script>
+<p>and the Weld-OSGi demo video is available on youtube :</p>
+<iframe src='http://www.youtube.com/embed/zbgZp15Y-Eo' frameborder='0' height='315' width='420'> </iframe>
+            <br />
+            <a href='/Dev/2012/07/03/cdi-par-la-pratique-le-retour'>comments &raquo;</a>
+            <br />
+            <hr style='border: 1px; border-color: #cccccc; border-style: dashed; ' />
+            <br />
+        
+    </div>
+
+    <div>
+        <br />
+        <h2>Blog Posts (last 10)</h2>
+        <ul class='posts'>
+            
+              <li><span>15 Nov 2012</span> &raquo; <a href='/Dev/2012/11/15/weld-osgi-in-action'>Weld-OSGi in Action</a> <br />
+                  </li>
+            
+              <li><span>19 Sep 2012</span> &raquo; <a href='/Dev/2012/09/19/play2-cdi'>How to use CDI in a Play 2 app</a> <br />
+                  </li>
+            
+              <li><span>03 Jul 2012</span> &raquo; <a href='/Dev/2012/07/03/cdi-par-la-pratique-le-retour'>CDI par la pratique, le retour</a> <br />
+                  </li>
+            
+              <li><span>21 May 2012</span> &raquo; <a href='/Dev/2012/05/21/OSGiCDI-integration-rfp'>OSGi/CDI integration RFP available for public comments</a> <br />
+                  </li>
+            
+              <li><span>11 May 2012</span> &raquo; <a href='/Dev/2012/05/11/Play2-IDE'>Play 2 IDE</a> <br />
+                  </li>
+            
+              <li><span>01 May 2012</span> &raquo; <a href='/Dev/2012/05/01/how-to-build-weld-osgi'>How to build Weld-OSGi</a> <br />
+                  </li>
+            
+              <li><span>30 Apr 2012</span> &raquo; <a href='/2012/04/30/cdi-par-la-pratique'>CDI par la pratique</a> <br />
+                  </li>
+            
+              <li><span>10 Feb 2012</span> &raquo; <a href='/Dev/2012/02/10/CDI-BreizhJUG'>@Inject everywhere</a> <br />
+                  </li>
+            
+              <li><span>05 Oct 2010</span> &raquo; <a href='/2010/10/05/javaone-2010--jour-6---retour-en-france-et-conclusion'>JavaOne 2010 : Jour 6   retour en France et conclusion</a> <br />
+                  </li>
+            
+              <li><span>05 Oct 2010</span> &raquo; <a href='/2010/10/05/javaone-2010--jour-5'>JavaOne 2010 : Jour 5</a> <br />
+                  </li>
+            
+        </ul>
+        <br />
+        <b><a href='/archive.html'>... all posts &raquo;</a></b>
+    </div>
+  </div>
+  </div>
+  <div class='span4'>
+    <a href='/about.html'><img src='/mathieu-avatar.jpg' id='math' /><img /></a>
+    <h3><a href='/about.html'>About Mathieu ANCELIN</a></h3>
+    <h4><a href='https://github.com/mathieuancelin/mathieuancelin.github.com/issues/new' target='_blank'>Ask me anything</a></h4>
+    <h4><a href='https://twitter.com/#!/TrevorReznik'>@TrevorReznik</a></h4>
+    <h4><a href='https://github.com/mathieuancelin'>mathieuancelin on github</a></h4>
+    <h4><a href='/atom.xml'>RSS feed</a></h4>
+    <h4><a href='/archive.html'>All posts</a></h4>
+    <h4><a href='/tags.html'>Tags</a></h4>
+    <hr />
+    <div>
+        <h3>Last Tweets</h3>
+        <!--<ul class="posts" id="from_TrevorReznik"></ul>-->
+        <table class='table table-striped' id='from_TrevorReznik'>
+        </table>
+        </div>
+        <hr />
+  </div>
+  <script type='text/javascript'>
+      /**clippy.load('Merlin', function(agent) {
+        agent.show();
+    });**/
+  </script>
+</div>
+  </div>
+</div>
+
+
+        <script>
+            tw.search('from:trevorreznik',function(data){
+                for(var i = 0; i <5; i+=1){
+                    var p = document.createElement('tr');
+                    p.innerHTML = '<td><span><b>' + data[i].user + '</b></span> &raquo; ' + data[i].msg + '</td>' ;
+                    document.querySelector('#from_TrevorReznik').appendChild(p);
+                }
+            });
+            var konami = new Konami()
+            konami.code = function() {
+                $('#math').attr('src', '/nyantocat.gif')
+                   clippy.load('Clippy', function(agent) {
+                      // Do anything with the loaded agent
+                      agent.show()
+
+                      setInterval(doSomething, 10000)
+
+                      function doSomething() {
+                          agent.animate()
+                      }
+                });
+            }
+            konami.load()
+            
+      </script>
+      </div>
+
+      <footer>
+        <p>&copy; Mathieu Ancelin 2010 - 2012 
+          <!--with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>-->
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+    <div id="preload">
+      <img src="/nyantocat.gif" width="1" height="1" />
+    </div>
+    
+  </body>
+</html>
+

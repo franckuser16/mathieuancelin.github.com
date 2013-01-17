@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>A big cup of Java</title>
+ <link href="http://mathieuancelin.github.com/atom.xml" rel="self"/>
+ <link href="http://mathieuancelin.github.com"/>
+ <updated>2013-01-17T21:46:54+01:00</updated>
+ <id>http://mathieuancelin.github.com</id>
+ <author>
+   <name>Mathieu Ancelin</name>
+   <email>nobody@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Weld-OSGi in Action</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/11/15/weld-osgi-in-action"/>
+   <updated>2012-11-15T00:00:00+01:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/11/15/weld-osgi-in-action</id>
+   <content type="html">&lt;p&gt;You can find the slides of the presentation I did at Devoxx this year here&lt;/p&gt;
+&lt;script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='bc915330117d01300440123139154813' data-ratio='1.77777777777778'&gt; &lt;/script&gt;
+&lt;p&gt;The code for the demo is available on my github account&lt;/p&gt;
+&lt;a href='https://github.com/mathieuancelin/demo-devoxx2012'&gt;https://github.com/mathieuancelin/demo-devoxx2012&lt;/a&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>How to use CDI in a Play 2 app</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/09/19/play2-cdi"/>
+   <updated>2012-09-19T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/09/19/play2-cdi</id>
+   <content type="html">&lt;p&gt;As you may know, I really love dependency injection and in Java EE project I tend to use it a lot. I&amp;#8217;m also involved in the &lt;a href='http://jcp.org/en/jsr/detail?id=346'&gt;CDI 1.1 specification&lt;/a&gt; and the &lt;a href='http://seamframework.org/Weld'&gt;JBoss Weld&lt;/a&gt; project. You also know that I&amp;#8217;m a big fan of &lt;a href='http://www.playframework.org/'&gt;Play! framework&lt;/a&gt; (both version 1 and 2) .&lt;/p&gt;
+
+&lt;p&gt;A few days ago, I saw a tweet from &lt;a href='https://twitter.com/guillaumebort/status/246614894663827456'&gt;Guillaume Bort&lt;/a&gt; explaining how to integrate Spring in a Play 2 application (based on the work done from &lt;a href='https://github.com/playframework/Play20/pull/365'&gt;https://github.com/playframework/Play20/pull/365&lt;/a&gt; ). As I already created a Play plugin to &lt;a href='https://github.com/mathieuancelin/play-cdi'&gt;use CDI in a Play 1 application&lt;/a&gt;, I wrote a sample application showing how to use CDI in a Play 2 application, based on Guillaume&amp;#8217;s sample app (thanks for the tip Guillaume). I&amp;#8217;m not sure that it is really useful to use CDI in Play application, but here is how to do it anyway.&lt;/p&gt;
+
+&lt;p&gt;You can do the same on your app if your using Play 2.1 (you&amp;#8217;ll have to &lt;a href='https://github.com/playframework/Play20/wiki/BuildingFromSource'&gt;build it from sources&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;First, you need to add the Weld SE dependency. Here we use Weld SE because it&amp;#8217;s really easy to bootstrap it programmatically. In the &lt;code&gt;project/Build.scala&lt;/code&gt; file, add a dependency to &lt;code&gt;weld-se&lt;/code&gt;&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=Build.scala'&gt; &lt;/script&gt;
+&lt;p&gt;You also need to add an empty (or not) &lt;code&gt;beans.xml&lt;/code&gt; file in your Play 2 app. so Weld will be able to boot. Just create a &lt;code&gt;META-INF&lt;/code&gt; folder in the &lt;code&gt;conf&lt;/code&gt; and create an empty &lt;code&gt;beans.xml&lt;/code&gt; inside.&lt;/p&gt;
+&lt;img src='/beans.jpg' /&gt;
+&lt;p&gt;Then, you need to use dynamic controller dispatching in your application so Weld will be able to create the controller instances for you. To do that, just prefix your controller class name with the &lt;code&gt;@&lt;/code&gt; symbol in the &lt;code&gt;routes&lt;/code&gt; file&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=routes'&gt; &lt;/script&gt;
+&lt;p&gt;When you do that, the controllers instances management will be delegated to the &lt;code&gt;Global&lt;/code&gt; object of your application. Here is an implementation of the &lt;code&gt;Global&lt;/code&gt; using Weld&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=Global.java'&gt; &lt;/script&gt;
+&lt;p&gt;Now, every class in your application is considered as a bean. If you want to exclude some classes, you need to write a CDI extension to veto bean types or you can use libraries like &lt;a href='http://www.seamframework.org/Seam3/Solder'&gt;Seam Solder&lt;/a&gt; or &lt;a href='https://cwiki.apache.org/DeltaSpike/'&gt;DeltaSpike project&lt;/a&gt; to do the job. So we can write a basic service like the following&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=HelloService.java'&gt; &lt;/script&gt;
+&lt;p&gt;and use it in a Java controller&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=Application.java'&gt; &lt;/script&gt;
+&lt;p&gt;or even in a Scala controller&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=ScalaController.scala'&gt; &lt;/script&gt;
+&lt;p&gt;Note that the controller is a class and not an object. If your controller is an object you won&amp;#8217;t be able to write something like the following in yoiur &lt;code&gt;routes&lt;/code&gt; file&lt;/p&gt;
+&lt;script src='https://gist.github.com/3749569.js?file=routes2'&gt; &lt;/script&gt;
+&lt;p&gt;As you may have noticed, you can&amp;#8217;t use web related scope with this implementation. To do so, you need to create a CDI extension that will provide a RequestScoped related context and handle requests from &lt;code&gt;Global&lt;/code&gt; object to feed that context. I will try to write a blog post about it later.&lt;/p&gt;
+
+&lt;p&gt;You can find the sample application &lt;a href='https://github.com/mathieuancelin/play2-cdi'&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;UPDATE : I updated my sample app to use CDI Events combined with Iteratees and SSE from both Scala and Java&lt;/p&gt;
+&lt;a href='https://gist.github.com/3755757'&gt;https://gist.github.com/3755757&lt;/a&gt;&lt;hr /&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>CDI par la pratique, le retour</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/07/03/cdi-par-la-pratique-le-retour"/>
+   <updated>2012-07-03T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/07/03/cdi-par-la-pratique-le-retour</id>
+   <content type="html">&lt;p&gt;The videos from my CDI presentation with Antoine Sabot-Durant at Devoxx France have been released.&lt;/p&gt;
+
+&lt;p&gt;(The Seam Social project has become Agorava project =&amp;gt; http://agorava.org)&lt;/p&gt;
+&lt;object height='395' width='395'&gt;
+  &lt;param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' /&gt;
+  &lt;param name='allowFullScreen' value='true' /&gt;
+  &lt;param name='wmode' value='direct' /&gt;
+  &lt;param name='bgcolor' value='#222222' /&gt;
+  &lt;param name='flashVars' value='sv=true&amp;amp;pageId=3339' /&gt;
+  &lt;embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;amp;pageId=3339' bgcolor='#222222' width='395' /&gt;
+&lt;/object&gt;&lt;object height='395' width='395'&gt;
+  &lt;param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' /&gt;
+  &lt;param name='allowFullScreen' value='true' /&gt;
+  &lt;param name='wmode' value='direct' /&gt;
+  &lt;param name='bgcolor' value='#222222' /&gt;
+  &lt;param name='flashVars' value='sv=true&amp;amp;pageId=3347' /&gt;
+  &lt;embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;amp;pageId=3347' bgcolor='#222222' width='395' /&gt;
+&lt;/object&gt;&lt;object height='395' width='395'&gt;
+  &lt;param name='movie' value='http://www.parleys.com/dist/share/parleysshare.swf' /&gt;
+  &lt;param name='allowFullScreen' value='true' /&gt;
+  &lt;param name='wmode' value='direct' /&gt;
+  &lt;param name='bgcolor' value='#222222' /&gt;
+  &lt;param name='flashVars' value='sv=true&amp;amp;pageId=3348' /&gt;
+  &lt;embed src='http://www.parleys.com/dist/share/parleysshare.swf' allowfullscreen='true' type='application/x-shockwave-flash' height='395' flashVars='sv=true&amp;amp;pageId=3348' bgcolor='#222222' width='395' /&gt;
+&lt;/object&gt;
+&lt;p&gt;my slides are here :&lt;/p&gt;
+&lt;script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='4f92b1d7c9c654002201130d' data-ratio='1.7297297297297298'&gt; &lt;/script&gt;
+&lt;p&gt;and the Weld-OSGi demo video is available on youtube :&lt;/p&gt;
+&lt;iframe src='http://www.youtube.com/embed/zbgZp15Y-Eo' frameborder='0' height='315' width='420'&gt; &lt;/iframe&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>OSGi/CDI integration RFP available for public comments</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/05/21/OSGiCDI-integration-rfp"/>
+   <updated>2012-05-21T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/05/21/OSGiCDI-integration-rfp</id>
+   <content type="html">&lt;p&gt;Today, &lt;a href='http://www.blogger.com/profile/13786738766478890804'&gt;David Bosschaert&lt;/a&gt; posted a first draft for the OSGi/CDI integration proposal.&lt;/p&gt;
+
+&lt;p&gt;David is a JBoss employee and he is co-chair of the OSGi EEG (Enterprise Expert Group). I met him last year at JUDCon London (JAX London) where I showed him what we&amp;#8217;ve done (at &lt;a href='http://www.serli.com'&gt;SERLI&lt;/a&gt;) with &lt;a href='https://github.com/mathieuancelin/weld-osgi'&gt;Weld-OSGi&lt;/a&gt; and he was very enthusiastic about the project.&lt;/p&gt;
+
+&lt;p&gt;The proposal is available &lt;a href='https://www.osgi.org/bugzilla/show_bug.cgi?id=141'&gt;here&lt;/a&gt; and the draft &lt;a href='https://www.osgi.org/bugzilla/attachment.cgi?id=19'&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can find David&amp;#8217;s post &lt;a href='http://blog.osgi.org/2012/05/osgicdi-integration-rfp-available-for.html'&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Don&amp;#8217;t hesistate to comment the draft and propose new requirements.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Play 2 IDE</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/05/11/Play2-IDE"/>
+   <updated>2012-05-11T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/05/11/Play2-IDE</id>
+   <content type="html">&lt;p&gt;Maybe you already know but I&amp;#8217;m a big Play! framework fan. I just love the way you can easily and naturally build true webapps very quickly. Play! framework provides some nice ways to edit Play! apps in major IDE with the &lt;code&gt;netbeansify&lt;/code&gt;, &lt;code&gt;eclipsify&lt;/code&gt; and &lt;code&gt;idealize&lt;/code&gt; commands. However, such IDE are often well known for being &amp;#8216;a little bit&amp;#8217; heavy (a nice way to say that your brand new Macbook Pro is running like your old Powerbook G3). The Play! framework guys are known to use simple text editors (like TextMate) when they&amp;#8217;re doing demos because the framework allows you the skip IDEs because of it&amp;#8217;s incremental compilation feature, inbrowser error reporting, etc &amp;#8230;&lt;/p&gt;
+
+&lt;p&gt;Since last August, I&amp;#8217;m a SublimeText 2 user. I really like this text editor because it&amp;#8217;s lightweight, powerful, customizable, etc &amp;#8230; I started to use it instead of TextMate to write my Play! applications and I was very happy with that. I installed some nice plugins like &lt;code&gt;BracketHighLighter&lt;/code&gt;, &lt;code&gt;ZenCoding&lt;/code&gt;, &lt;code&gt;SublimeCodeIntel&lt;/code&gt;, &lt;code&gt;SublimeJava&lt;/code&gt;. I even gave a shot at &amp;#8216;Ensime&amp;#8217; integration to get Scala compiler error reporting in my text editor.&lt;/p&gt;
+
+&lt;p&gt;Then, a little bit earlier this week, Guillaume Bort, the creator of Play! framework started to write a SublimeText 2 plugin for Play 2. The plugin had syntax highlighting for configuration files, routes files, scala templates and some scala snippets for Actions, Controllers and Globals. As I like the snippet feature a lot (because I always forget how to do some specific stuff), I started to add my own snippets to Guillaume&amp;#8217;s plugin so I will be able to code a lot much faster (I hope ;-). Of course I made my code available on github.&lt;/p&gt;
+
+&lt;p&gt;Right now, you can find the plugin here :&lt;/p&gt;
+&lt;a href='https://github.com/mathieuancelin/play2-sublimetext2/tree/snippets'&gt;https://github.com/mathieuancelin/play2-sublimetext2/tree/snippets&lt;/a&gt;
+&lt;p&gt;You just have to clone it inside your SublimeText Packages directory to make it work :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/ 
+# or $ cd ~/.config/sublime-text-2/Packages/
+$ git clone https://github.com/mathieuancelin/play2-sublimetext2.git play2
+$ cd play2
+$ git checkout -b snippets origin/snippets&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following snippets are available :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;action ➝&lt;/code&gt; : Creates an &lt;code&gt;Action&lt;/code&gt; (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;actor ➝&lt;/code&gt; : Get an actor reference from &lt;code&gt;Akka&lt;/code&gt; (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;aync ➝&lt;/code&gt; : Creates an &lt;code&gt;Async&lt;/code&gt; result (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;bindform ➝&lt;/code&gt; : Creates form &amp;#8216;binding from request&amp;#8217; structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;cacheget ➝&lt;/code&gt; : Retrieve value from Cache API (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;cacheset ➝&lt;/code&gt; : Put value in the Cache (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;callbackenum ➝&lt;/code&gt; : Creates an &lt;code&gt;Enumerator&lt;/code&gt; from a callback (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;controller ➝&lt;/code&gt; : Creates a &lt;code&gt;Controller&lt;/code&gt; structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;dbconn ➝&lt;/code&gt; : Creates a &lt;code&gt;DB.withConnection&lt;/code&gt; structure (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;dbtrans ➝&lt;/code&gt; : Creates a &lt;code&gt;DB.withTransaction&lt;/code&gt; structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;entity ➝&lt;/code&gt; : Creates a &lt;code&gt;Ebean&lt;/code&gt; entity structure (java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;pforeach ➝&lt;/code&gt; : Creates an foreach structure in templates (html)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;form ➝&lt;/code&gt; : Creates a simple form structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;fromconf ➝&lt;/code&gt; : Creates a &amp;#8216;get value from config file&amp;#8217; structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;flatmapthatshit ➝&lt;/code&gt; : Just &lt;code&gt;flatmap&lt;/code&gt; that shit (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;global ➝&lt;/code&gt; : Creates a &lt;code&gt;Global&lt;/code&gt; object structure (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;htmlform ➝&lt;/code&gt; : Creates a simple html form using Play! helpers (html)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;model ➝&lt;/code&gt; : Creates a JDBC model structure (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;ok ➝&lt;/code&gt; : Creates a &lt;code&gt;ok&lt;/code&gt; result (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;pushenum ➝&lt;/code&gt; : Creates an imperative &lt;code&gt;Enumerator&lt;/code&gt; with a hub for multiple &lt;code&gt;Iteratee&lt;/code&gt; consumption (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;redirect ➝&lt;/code&gt; : Creates a redirection &lt;code&gt;Result&lt;/code&gt; (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;schedule ➝&lt;/code&gt; : Creates a scheduled task (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;sql ➝&lt;/code&gt; : Creates a &lt;code&gt;SQL(...)&lt;/code&gt; statement structure (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;sessionget ➝&lt;/code&gt; : Retrieve a value from current session (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;sessionset ➝&lt;/code&gt; : Put value in current session (scala &amp;amp; java)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;sse ➝&lt;/code&gt; : Creates a SSE action (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;sout ➝&lt;/code&gt; : Creates a &lt;code&gt;System.out.println()&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;tupleform ➝&lt;/code&gt; : Creates a multiple input form (scala)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;template ➝&lt;/code&gt; : Creates a scala template structure (html)&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;websocket ➝&lt;/code&gt; : Creates a &lt;code&gt;WebSocket&lt;/code&gt; Action (scala &amp;amp; java)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These snippets are just stuff that I use in my projects and I&amp;#8217;m sure that some very useful things are missing. So don&amp;#8217;t hesitate to fork my project and add some useful stuff to the plugin. I will also talk to Guillaume to see if it&amp;#8217;s possible to push some of these snippet on the main repo if he likes it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; : Guillaume just merged my pull requests, so you can use his repo to install the snippets instead of mine.&lt;/p&gt;
+&lt;a href='https://github.com/guillaumebort/play2-sublimetext2'&gt;https://github.com/guillaumebort/play2-sublimetext2&lt;/a&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>How to build Weld-OSGi</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/05/01/how-to-build-weld-osgi"/>
+   <updated>2012-05-01T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/05/01/how-to-build-weld-osgi</id>
+   <content type="html">&lt;p&gt;Maybe you already heard about Weld-OSGi before, lately I&amp;#8217;ve done some presentations about it in Java User Groups and at some conferences like Devoxx France, JAX London or JUG Summer Camp. If you want to know more about it, you can check the slides out :&lt;/p&gt;
+&lt;script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='4f92ccc7cb4cd0001f01504b' data-ratio='1.6'&gt; &lt;/script&gt;
+&lt;p&gt;The only problem about Weld-OSGi is that we broke a public Weld API and because of that, the code of the project isn&amp;#8217;t merged into Weld core because of backward compatibility. But don&amp;#8217;t worry, it will be soon ;-)&lt;/p&gt;
+
+&lt;p&gt;In this post, I will explain how to build a version of Weld with Weld-OSGi inside. Then you will be able to do stuff like :&lt;/p&gt;
+&lt;iframe src='http://www.youtube.com/embed/R4MbRn46-AA' frameborder='0' height='315' width='560'&gt; &lt;/iframe&gt;
+&lt;p&gt;In a future post, I will explain how to integrate it inside JBoss AS7 to create hybrid Java EE/OSGi applications like demoed at DevoxxFR :&lt;/p&gt;
+&lt;iframe src='http://www.youtube.com/embed/zbgZp15Y-Eo' frameborder='0' height='315' width='420'&gt; &lt;/iframe&gt;
+&lt;h1 id='lets_get_started'&gt;Let&amp;#8217;s get started&lt;/h1&gt;
+
+&lt;p&gt;In the following script samples, let&amp;#8217;s assume &lt;code&gt;${START}&lt;/code&gt; is the place where you are going to work, where you are going to clone git repos.&lt;/p&gt;
+&lt;script src='https://gist.github.com/2569318.js?file=blog.sh'&gt; &lt;/script&gt;
+&lt;p&gt;And you&amp;#8217;re done, quite easy huh :-)&lt;/p&gt;
+
+&lt;h1 id='lets_play'&gt;Let&amp;#8217;s play&lt;/h1&gt;
+
+&lt;p&gt;If you want to play with the Weld-OSGi samples you just have to build&amp;#8217;em&lt;/p&gt;
+&lt;script src='https://gist.github.com/2569318.js?file=blog1.sh'&gt; &lt;/script&gt;
+&lt;p&gt;and run the OSGi container.&lt;/p&gt;
+&lt;script src='https://gist.github.com/2569318.js?file=blog2.sh'&gt; &lt;/script&gt;
+&lt;p&gt;Then you can list bundles installed with &lt;code&gt;ps&lt;/code&gt; command and start them with &lt;code&gt;start/stop&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;If you want to embed Weld-OSGi somewhere, important binaries are in core module :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;api&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-core-api-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;ee (for hybrid Java EE apps)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-ee-integration-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;extension&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-core-extension-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;integration&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-core-integration-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;mandatory&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-core-mandatory-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;spi&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-core-spi-1.2.0-SNAPSHOT.jar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can find how to use Weld-OSGi for pure OSGi application development in the &amp;#8216;examples&amp;#8217; directory. You can find how to use Weld-OSGi in an OSGi container in the samples, for instance inside a felix container :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;core/environments/osgi/examples&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;container-felix&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;target&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;weld-osgi-container-felix-1.2.0-SNAPSHOT-all&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;weld-osgi-container-felix-1.2.0-SNAPSHOT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>CDI par la pratique</title>
+   <link href="http://mathieuancelin.github.com/2012/04/30/cdi-par-la-pratique"/>
+   <updated>2012-04-30T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2012/04/30/cdi-par-la-pratique</id>
+   <content type="html">&lt;p&gt;You can find my slides from DevoxxFR about CDI here :&lt;/p&gt;
+&lt;script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' data-id='4f92b1d7c9c654002201130d' data-ratio='1.7297297297297298'&gt; &lt;/script&gt;
+&lt;p&gt;The demo is available on youtube :&lt;/p&gt;
+&lt;iframe src='http://www.youtube.com/embed/zbgZp15Y-Eo' frameborder='0' height='315' width='420'&gt; &lt;/iframe&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>@Inject everywhere</title>
+   <link href="http://mathieuancelin.github.com/Dev/2012/02/10/CDI-BreizhJUG"/>
+   <updated>2012-02-10T00:00:00+01:00</updated>
+   <id>http://mathieuancelin.github.com/Dev/2012/02/10/CDI-BreizhJUG</id>
+   <content type="html">&lt;p&gt;Voici les slides de la présentation sur CDI et ses extensions que j&amp;#8217;ai faite au &lt;a href='http://www.breizhjug.org/'&gt;BreizhJUG&lt;/a&gt; avec &lt;a href='http://www.antoniogoncalves.org/xwiki/bin/view/Main/WebHome'&gt;Antonio Goncalves&lt;/a&gt; le 1er février dernier :&lt;/p&gt;
+&lt;script class='speakerdeck-embed' src='//speakerdeck.com/assets/embed.js' async='true' data-id='4fbb3dc915a68f0022013f2d' data-ratio='1.3333333333333333'&gt; &lt;/script&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 6   retour en France et conclusion</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-6---retour-en-france-et-conclusion"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-6---retour-en-france-et-conclusion</id>
+   <content type="html">&lt;p&gt;Réveil tôt aujourd&amp;#8217;hui, c&amp;#8217;est le départ pour la France. Dans 16 heures, je devrais être à Paris. Le temps de sauter dans un taxi et j&amp;#8217;arrive à l&amp;#8217;aéroport de San Francisco après avoir traversé les collines désertiques l&amp;#8217;éloignant de la ville.&lt;/p&gt;
+
+&lt;p&gt;Que dire de cette édition de la conférence. N&amp;#8217;ayant pas de recul avec les années précédentes, j&amp;#8217;aurais tendance à dire que c&amp;#8217;est un évènement énorme et franchement sympathique. Des sessions avec beaucoup de contenu et des speakers de qualité (je ne parle pas forcément de moi :), De sympathiques rencontres, exactement se que j&amp;#8217;attendais d&amp;#8217;un tel évènement.&lt;/p&gt;
+
+&lt;p&gt;Une suggestion cependant pour Oracle, lors des prochaines éditions, les trois hôtels pour la JavaOne, ce n&amp;#8217;est vraiment pas très pratique. Je Moscone me semblait parfaitement indiqué pour cela :)&lt;/p&gt;
+
+&lt;p&gt;Je remercie Alexis Moussine-Pouchkine de m&amp;#8217;avoir invité pour les Hands On Labs et je remercie bien évidemment &lt;a href='http://www.serli.com/'&gt;SERLI&lt;/a&gt; de m&amp;#8217;avoir permis d&amp;#8217;aller en Californie pour ce grand évènement Java.&lt;/p&gt;
+
+&lt;p&gt;Merci Alexis, merci Jérôme et surtout merci Orianne pour la logistique.&lt;/p&gt;
+
+&lt;p&gt;JavaOne, peut-être à une prochaine fois.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 5</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-5"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-5</id>
+   <content type="html">&lt;p&gt;Aujourd&amp;#8217;hui dernière Keynote et dernier Hands On Labs pour moi. Une keynote orientée informatique embarquée, secteur dans lequel Java ME est fortement présent (forcément :). C&amp;#8217;est l&amp;#8217;occasion de faire quelques démonstrations sur scène avec des systèmes de détection de problèmes cardiaque en ligne, des systèmes de péage automatique wireless pour les autoroutes et enfin une excellente démo du non moins excellent stylo lightscribe, surement le stylo le plus intelligent de sa génération. On se demande même s&amp;#8217;il est capable de ne pas savoir faire quelque chose tant il est possible d&amp;#8217;étendre ses possibilités avec quelques lignes de Java (non ce n&amp;#8217;est pas un iPhone). Les exemples du piano virtuel ou du traducteur instantané sont bluffant.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/-UjSaoUgmNu4g6iCj-WM2Q?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ41OIjuFVI/AAAAAAAAAbQ/erryUoyy7Hg/s400/IMG_0332.JPG' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;Dernier Labs pour moi, je retrouve Alexis au Plaza A du Hilton pour cette ultime session. Encore une fois la salle est comble mais cette fois-ci les machines fonctionnent convenablement. Plusieurs profils sont présents ici. Cela va du développeur novice en matière de Java EE 6, au développeur érudit qui fini ses exercices très rapidement. Beaucoup de questions lors de cette session, auxquelles j&amp;#8217;ai été ravi de répondre. Beaucoup d&amp;#8217;interrogation sur l&amp;#8217;organisation des composants, les liens entre eux, le fonctionnement interne du conteneur pour lier tout ca au runtime, etc &amp;#8230; Un véritable plaisir pour moi de partager sur la plateforme.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/j1iZfTvCqveYDJddwOCb2Q?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ45j5HLK-I/AAAAAAAAAfs/-988K5G_5K8/s400/my_photo.jpg' height='300' width='400' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/0I_bwwv5FBcIUDuEi3yvIw?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ408GeLHZI/AAAAAAAAAbA/g0A0kZyhKCc/s400/IMG_0337.JPG' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;Après tout ce Java EE 6, je prend part à une session sur le HotSwapping de la JVM est sur un &amp;#8220;hack&amp;#8221; extrêmement intéressant permettant d&amp;#8217;aller beaucoup plus loin que ce qui se fait et de swapper à la volée tout ce que l&amp;#8217;on veut (code dans des méthodes, méthodes, classes, etc &amp;#8230;). Vivement que ce patch soit accepté dans la JVM, il devrait rendre nos multiples redéploiements inutiles et permettrait d&amp;#8217;être vraiment plus productif dans nos développement.&lt;/p&gt;
+
+&lt;p&gt;Ultime session de la JavaOne pour moi et je finis sur un peu de Groovy pour écrire des DSL. Connaissant mon goût immodéré pour ce langage, je risque de ne pas vraiment être objectif, mais quelle présentation. Groovy est vraiment un Java ++ (ou ++++++++++++, sans analogie avec le C++ :). Quel bonheur se serait de pouvoir utiliser se langage au quotidien dont les multiples raccourcis tant syntaxiques que conceptuels nous faciliteraient considérablement la vie. Ici les DSL s&amp;#8217;imposent d&amp;#8217;eux même et on se surprend à rêver de personnes non développeur écrivant du code propre à leur métier et quasiment équivalent au langage naturel. Un beau rêve permit par Groovy et son modèle de méta programmation avancé.&lt;/p&gt;
+
+&lt;p&gt;La présentation peut-être trouvée &lt;a href='http://www.slideshare.net/paulk_asert/groovydsls'&gt;ici&lt;/a&gt; et je la conseille à tout le monde.&lt;/p&gt;
+
+&lt;p&gt;Je profite des dernières heures de jour pour faire un tour à l&amp;#8217;Apple Store de San Francisco. Il va vraiment en falloir un comme ca au Futuroscope, je pense que c&amp;#8217;est indispensable :)&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/Qkx5Ew2thEYJOUqYBnULJw?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ42GDltHjI/AAAAAAAAAb4/9DcEFq71zGA/s400/IMG_0339.JPG' height='400' width='300' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/odA6tCstmvImNpiboGQPRw?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ41upIFA6I/AAAAAAAAAbo/ch7ESs4hY-Y/s400/IMG_0340.JPG' height='300' width='400' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/FgJtyDBIRJsggjwiPDonXg?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ41Yz2GjoI/AAAAAAAAAbY/jgvzMLxaDDo/s400/IMG_0341.JPG' height='300' width='400' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/vRST6vh7iMJS753_e5ufKw?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ42c1_qdbI/AAAAAAAAAcM/749YAwiOw-g/s400/IMG_0344.JPG' height='300' width='400' /&gt;&lt;/a&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 4</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-4"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-4</id>
+   <content type="html">&lt;p&gt;On commencer fort aujourd&amp;#8217;hui avec un panel Java EE 6 riche en retour sur la toute jeune spécification. Les panelistes étaient les suivant :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adam Bien&lt;/li&gt;
+
+&lt;li&gt;Jim Knutson (IBM)&lt;/li&gt;
+
+&lt;li&gt;Emmanuel Bernard (JBoss, Red Hat)&lt;/li&gt;
+
+&lt;li&gt;Reza Rahman (individual, Caucho)&lt;/li&gt;
+
+&lt;li&gt;Krasimir Semerdzhiev (SAP)&lt;/li&gt;
+
+&lt;li&gt;Roberto Chinnici (Oracle, spec lead)&lt;/li&gt;
+
+&lt;li&gt;David Blevins (OpenEJB, Apache Geronimo)&lt;/li&gt;
+
+&lt;li&gt;Alexis MP (Oracle)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/FTQPT89iLEsbDju7A1n0Tg?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ42jJ_O8qI/AAAAAAAAAcQ/lcKt4pm7xqc/s400/IMG_0302.JPG' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;Durant cette session, j&amp;#8217;ai trouvé le représentant d&amp;#8217;IBM un peu frileux sur la techno (notamment sur CDI). L&amp;#8217;adoption de la plateforme semble excellente, surement car elle permet de se concentrer au maximum sur le code métier plutôt que sur les problèmes techniques. Deux point sont revenus assez souvent selon moi, Spring et CDI. Pour Adam, même si CDI paraît complexe avec toutes ces annotations dans 99% des cas, il ne l&amp;#8217;est pas. Il est donc préférable de n&amp;#8217;utiliser Spring que pour ses utilitaires (si besoin il y a) en dehors de ca, Java EE 6 a été conçu pour fonctionner sans framework additionnel, ce qui élimine les problèmes de WAR de plus de 100 Mo. Une séance très riche, racontée plus en détails &lt;a href='http://blogs.sun.com/alexismp/entry/javaone_2010_java_ee_6'&gt;sur le blog d'Alexis&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Quoi qu&amp;#8217;il en soit tous les serveurs d&amp;#8217;applications représentés devraient passer le TCK (au moins Web profile) dans les mois qui viennent ce qui est une excellente nouvelle.&lt;/p&gt;
+
+&lt;p&gt;Ensuite, une petite séance sur Netbeans Platform (l&amp;#8217;équivalent de Eclipse RCP mais en mieux :) et comment le dompter avec Maven (rien de bien compliqué comparé à Tycho). La plateforme semble énormément utilisée, notamment dans le domaine de la CAO 3D et semble assez simple à prendre en main. Il va falloir que j&amp;#8217;approfondisse cela.&lt;/p&gt;
+
+&lt;p&gt;Après un repas sympathique dans la salle de bal du Hilton, je change d&amp;#8217;hôtel et fonce au Parc 55 pour assister à une présentation du la JSR-330. Etant un grand amateur de cette spécification, il m&amp;#8217;était impossible de manquer cette session qui fût très instructive sur la façon dont la JSR est implémentée au grés des différents conteneurs (Spring, Juice, Weld, etc &amp;#8230;). L&amp;#8217;occasion pour moi également de m&amp;#8217;entretenir avec Costin Leau de SpringSource sur certaines bizarreries d&amp;#8217;un conteneur dont je ne citerai pas le nom :)&lt;/p&gt;
+
+&lt;p&gt;Entre temps dans les couloirs du Hilton une étrange créature se ballade. J&amp;#8217;essaye de l&amp;#8217;attraper pour prouver aux membres du Poitou-Charentes JUG que l&amp;#8217;espèce n&amp;#8217;est pas éteinte, mais c&amp;#8217;est peine perdue, la bête est trop rapide.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/JNQlSmJ-Vp_fp49CjwGKPQ?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ40xsza08I/AAAAAAAAAa4/9DLSPIJMWU8/s400/IMG_0306.JPG' height='400' width='300' /&gt;&lt;/a&gt;
+&lt;p&gt;Enfin, le meilleur pour la fin, une session de &amp;#8220;live hacking&amp;#8221; avec Adam Bien et Java EE 6. Ici, Adam est encore plus expéditif que mardi, pas le temps de présenter les quelques slides, on se lance directement dans le code et plus particulièrement dans une application de gestion d&amp;#8217;armures Iron Man (Iron man Management System ou IMS pour les puristes :). Apparemment les armures devant de Hall D ont fait leur effet.&lt;/p&gt;
+
+&lt;p&gt;Lors de cette session Adam jongle aussi bien avec les stéréotypes, les évènements et les qualifiers CDI qu&amp;#8217;avec les EJB Lite et les entités JPA 2. Un véritable régal pour ceux qui y assistent. Toutes les questions sont illustrées par un peu de code directement dans l&amp;#8217;application et le speaker semble être épargné par la loi de Murphy. Du grand art, en espérant pouvoir voir ce genre de show dans les environs de Poitiers.&lt;/p&gt;
+
+&lt;p&gt;Il est maintenant temps de se rendre au tour de force d&amp;#8217;Oracle pour cette édition de la JavaOne sous leur direction, l&amp;#8217;Appreciation Event. Dans la baie de San Francisco, il existe une île artificielle sur laquelle s&amp;#8217;appuie de Bay Bridge. Son nom, Treasure Island. Sa fonctionne en ce mercredi soir : accueillir les milliers de participants JavaOne / Oracle Open World pour une soirée, gigantesque. Des bus sont mis à disposition aux portes des hôtels du centre ville et provoquent foule d&amp;#8217;embouteillages sur leur passage pour emmener les &amp;#8220;attendees&amp;#8221; sur l&amp;#8217;îles. Ici, Oracle a reconstitué une véritable fête foraine et n&amp;#8217;a sûrement pas oublié la grande roue .&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/WZ8wsZxHPGvv_9iEQwgIJw?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ42wBdtVDI/AAAAAAAAAcc/lQUmd74xaTc/s400/IMG_0319.JPG' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;La nourriture et les boissons sont gratuites pour tout le monde et chacun peut se resservir à volonté (jusqu&amp;#8217;à l&amp;#8217;excès diront certains :) Toutes les attractions sont gratuites, comme les 6 concerts se déroulant cette soirée là. Sur la scène couverte, The English beat, Don Henley (ex. Eagles) et Montgomery Gentry se succéderont au cours de la soirée. Pour la scène extérieure Berlin, The Black Eyed Peas et Steve Miller&amp;#8217;s Band sont de la partie. Une soirée grandiose somme toute, sûrement à la hauteur des ambitions d&amp;#8217;Oracle pour son double évènement.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/GBEzXCusiwo2mDIFx6_kyg?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ404Kevc1I/AAAAAAAAAa8/DPSrb7zSXC8/s400/IMG_0313.JPG' height='300' width='400' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/tgX5L_02KAK50vRk8kh3Fw?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ4zwXn9KKI/AAAAAAAAAaE/2cj8XlOSSuY/s400/IMG_0322.JPG' height='300' width='400' /&gt;&lt;/a&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 3</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-3"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-3</id>
+   <content type="html">&lt;p&gt;Enfin une longue nuit de sommeil, ca commençais à me manquer sérieusement. Je me réveille donc à 9h00 au doux son des sirènes de pompier. Pas de temps à perdre, ma première session de la journée commencer bientôt. Direction le Hilton pour retrouver Adam Bien et Java EE 6. Je retrouve Guillaume et Nicolas (de Play Framework) dans la salle, eux aussi intéressé par les nouvelles façons &amp;#8220;extrêmement simples&amp;#8221; de développer des applications.&lt;/p&gt;
+
+&lt;p&gt;Adam est un véritable showman, pas plus de trois slides et un IDE sur scène (Netbeans pour les curieux, rien de plus normal), cela lui suffit pour illustrer tous les avantages à utiliser Java EE 6 pour vos nouvelles application Java en entreprise. Les gens posent des questions et Adam y répond extrêmement clairement en s&amp;#8217;appuyant sur des exemples &amp;#8220;live&amp;#8221; dans le code. Chapeau ! J&amp;#8217;espère qu&amp;#8217;il pourra un jour se frayer un chemin jusqu&amp;#8217;au Poitou-Charentes JUG :)&lt;/p&gt;
+
+&lt;p&gt;D&amp;#8217;ailleurs, si vous souhaitez apprendre Java EE 6, Adam conseille le Livre d&amp;#8217;un certain &amp;#8220;Antonio Gonzales&amp;#8221; que je ne manquerais pas de me procurer.&lt;/p&gt;
+
+&lt;p&gt;Il est maintenant tant de parler d&amp;#8217;injection de dépendances (mon hobby) lors de la session JSR-299, Weld and the future of Seam. Ici Dan Allen de JBoss nous brosse un tableau idyllique de la spécification JSR-299, la standardisation de l&amp;#8217;injection de dépendance et de la &amp;#8216;pluginification&amp;#8217; standard de la plateforme Java EE. En effet, la présentation est très claire et donne vraiment envie de travailler avec Weld (la RI). Dan nous parle également de Seam 3 qui sera en fait un set d&amp;#8217;extensions standard au dessus de CDI. On remarquera ici le génie de JBoss (et par la même occasion de Gavin King) qui a réussi à standardiser le nouveau coeur de Seam. Très Fort :)&lt;/p&gt;
+
+&lt;p&gt;Il est midi, et nous mangeons chez Lacy, un restaurant typé années 1950-60 qui offre une véritable immersion dans des films comme Retour vers le futur. L&amp;#8217;occasion pour moi de goûter un bon gros burger comme on en fait pas en France.&lt;/p&gt;
+
+&lt;p&gt;Direction la grand Ballroom du Hilton pour Technical Keynote Java. Au programme le futur de Java SE avec les JDK 7 et 8 (voir ma note du lundi), de Java EE avec GlassFish et le cloud, ainsi que de Java ME. Pour illustrer le facilité de mise en oeuvre de Java EE 6, Arun Gupta mon sur scène et nous fait une petite démo d&amp;#8217;une application faisant des recherches twitter et consolidant les résultats dans une interface pur JSF sans aucun framework additionnel prouvant la maturité de la plateforme. Ici encore sont utilisés Netbeans et GlassFish, sûrement les meilleurs outils pour ce genre de boulot.&lt;/p&gt;
+
+&lt;p&gt;Après toutes ces informations sur le futur de Java, il est temps de se détendre avec quelques bières et l&amp;#8217;épisode en live du Java Posse (l&amp;#8217;équivalent de nos CastCodeurs), épisode très drôle présentant le futur de Java au sein de la chaine d&amp;#8217;hyper marchés Wallmart.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/CHabcNfIT2eOBsur_gK_DQ?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ44NhKzAmI/AAAAAAAAAeE/b1-sX--XV3s/s400/IMG_0297.JPG' height='400' width='300' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/dT-Om5ydnQlo5Al7xtE5Ww?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ45jNjNQ3I/AAAAAAAAAfo/dMH4T7t0wwI/s400/my_photo%20%284%29.jpg' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;Il est l&amp;#8217;heure de partir pour la JBoss party, organisée dans un bar sur Mason Street. Fun fact, l&amp;#8217;entrée dans le bar peut se faire par un toboggan (avec une personne en bas pour rattrapper les réceptions alcoolisées). Soirée sympa où nous retrouvons Emmanuel Bernard devant quelques bières et verres de vin.&lt;/p&gt;
+
+&lt;p&gt;Il est maintenant l&amp;#8217;heure de partir et de se diriger vers le quartier de Twin Peaks (mais où son Dale Cooper, Audrey Horne et les sapins Douglas :) situé dans les hauteurs de San Francisco. Nous sommes invités à une soirée organisée par eXo Platform, l&amp;#8217;occasion se se retrouver majoritairement entre francophones devant un délicieux barbecue et de très bonnes bouteilles.&lt;/p&gt;
+
+&lt;p&gt;De quoi bien dormir :)&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/bQSTEpvOzqKCGH3UHdqLpA?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ43WqRjnxI/AAAAAAAAAdE/M9hMytsUMwA/s400/IMG_0300.JPG' height='300' width='400' /&gt;&lt;/a&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 2</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-2"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-2</id>
+   <content type="html">&lt;p&gt;Bon, le jetlag a encore gagné, a peine 5 heures de sommeil et je suis réveillé après une soirée pourtant assez éprouvante. Quoi qu&amp;#8217;il en soit, une douche et direction le petit déjeuner au Hilton où bagels et cakes en tous genre m&amp;#8217;attendent.&lt;/p&gt;
+
+&lt;p&gt;La première session de la journée, c&amp;#8217;est avec le JDK 7 et Mark Reynolds que je vais la passer. Direction la &amp;#8220;Grand Ballroom&amp;#8221; du Hilton qui ne serait absolument pas déplacée dans un film hollywoodien ou dans certaines séries portant sur la jeunesse dorée américaine.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/zyjCW7XDyu7xC7ip78mjbQ?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ44FWSnadI/AAAAAAAAAd8/i2s4W1D_HdI/s400/IMG_0278.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Mark commence sa présentation avec un petit récapitulatif des différentes version du JDK au court des années pour arriver à l&amp;#8217;arlésienne qu&amp;#8217;est le JDK 7. Il aborde les différents points normalement couverts par ce nouveau JDK, notamment les évolutions mineures de langage avec le projet Coin, les closures avec le projet Lambda, la modularité dans Java avec le projet Jigsaw et la disparition du &amp;#8220;Classpath Hell&amp;#8221;, le projet Da Vinci Machine et le support du InvokeDynamic, le projet Fork/Join pour l&amp;#8217;utilisation simplifiée du multi-threading, etc &amp;#8230;&lt;/p&gt;
+
+&lt;p&gt;Cependant, tout n&amp;#8217;est pas fini, il y a encore beaucoup de travail à faire pour pouvoir distribuer ce JDK. Deux solutions s&amp;#8217;offrent aux ingénieurs d&amp;#8217;Oracle. Distribuer le JDK 7 avec toutes les features pour milieu 2012, ou distribuer le JDK 7 sans Jigsaw et Lambda mi-2011 et distribuer une V8 fin 2012 avec ces projets intégrés.&lt;/p&gt;
+
+&lt;p&gt;Visiblement, le plan B semble avoir convaincu le plus grand nombre et c&amp;#8217;est celui qui sera retenu. D&amp;#8217;ailleurs Oracle semble vouloir adopter la philosophie &amp;#8220;release early, release often&amp;#8221; pour le JDK, ce qui n&amp;#8217;est pas un mal. Vivement ces nouveaux JDK, voire s&amp;#8217;ils nous simplifient la vie :)&lt;/p&gt;
+
+&lt;p&gt;Maintenant direction l&amp;#8217;Hôtel Parc 55 pour une petite session sur Groovy, le langage dynamique au goût de Java ++. Cette session a surtout retracé les évolutions majeures apparues dans le langage au cours des dernières version ainsi que les orientations futures du langage. On notera tout particulièrement les amélioration apportées aux niveau des DSL avec la GEP-3 (Groovy Enhancement Proposal) permettant d&amp;#8217;écrire des mini langage quasiment calqués sur du langage naturel :&lt;/p&gt;
+&lt;script src='https://gist.github.com/2569986.js?file=dsl.groovy'&gt; &lt;/script&gt;
+&lt;p&gt;J&amp;#8217;espère vraiment pouvoir utiliser ce genre de truc un jour dans mes projets :) (cette dernière phrase est complètement dénuée de sens caché concernant mes futures envies de mission)&lt;/p&gt;
+
+&lt;p&gt;La pression monte, il est maintenant l&amp;#8217;heure de mon premier Hands On Lab avec Alexis Moussine-Pouchkine, je me dirige vers la Plaza A du Hilton pour parler de Java EE 6 et de bookstore. Malheureusement, rien de se passe comme prévu et le labs doit être repoussé dans l&amp;#8217;après-midi en raison de problèmes techniques avec les machines que l&amp;#8217;équipe s&amp;#8217;échine à remettre sur pied. Ca commence bien :) Pourtant quelques heures plus tard, les machines ne fonctionnent toujours pas comme voulues et Alexis décide de faire les exercice du labs sur le vidéo projecteur tandis que les gens posent des question. Dommage !&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/vnw74GZDZ6D8ICNc21JFTg?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ43q_BuYLI/AAAAAAAAAdc/BBy7NFo3hFA/s400/IMG_0282.JPG' height='300' width='400' /&gt;&lt;/a&gt;
+&lt;p&gt;17 heures, l&amp;#8217;heure de la keynote Java, direction le Moscone Center, décidément la JavaOne nouvelle formule aura l&amp;#8217;avantage de faire marcher les geeks. Les premiers sur scène sont les gens d&amp;#8217;Intel qui n&amp;#8217;ont pas vraiment dit de choses intéressantes. A part répéter qu&amp;#8217;avec leur matériel, les serveurs d&amp;#8217;applications cassent tous les records de vitesse rien à se mettre sous la dent à ce niveau là. Puis entre en scène Thomas Kurian qui, au fil des démos présente le futur de Java. Durant cette keynote, Kurian réaffirme l&amp;#8217;engagement d&amp;#8217;Oracle envers les projet Java clé et ce n&amp;#8217;est pas un mal, les gens en ont besoin.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/Rm4WKTMjNLqDDgo2t8cE9w?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ43aPyN7-I/AAAAAAAAAdI/oCFUgoZVnuw/s400/IMG_0283.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Les différentes démos sont exécutées sans problème particulier ce qui ne semblait pas gagné d&amp;#8217;avance (une des présentatrice était apparemment une spécialiste de la loi de Murphy). La démo sur le futur JavaFX est très sexy et on apprend en même temps que le langage va disparaitre au profit d&amp;#8217;une API Java standard compatible avec les nouveaux standards du net.&lt;/p&gt;
+
+&lt;p&gt;De même HK2 et GlassFish sont cités et ce dernier bénéficie même d&amp;#8217;une démo live. Surement une des meilleurs keynote de la semaine. Chapeau :)&lt;/p&gt;
+
+&lt;p&gt;Il est maintenant l&amp;#8217;heure des BOF et je me dirige vers la salle ou à lieu la présentation sur le framework Play! Etant un grand fan du framework, je ne suis pas totalement objectif mais les démos étaient vraiment bluffantes et tout en restant extrêmement simples à écrire. Si vous cherchez à écrire une application web très rapidement, il n&amp;#8217;y a plus a chercher, Play est là pour ça. Continuez comme ca les gars.&lt;/p&gt;
+
+&lt;p&gt;Une dernière BOF sur les différentes implémentations de CDI ainsi que leur futur et je rentre me coucher, exténué par cette journée et le décalage horaire.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaOne 2010 : Jour 1</title>
+   <link href="http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-1"/>
+   <updated>2010-10-05T00:00:00+02:00</updated>
+   <id>http://mathieuancelin.github.com/2010/10/05/javaone-2010--jour-1</id>
+   <content type="html">&lt;p&gt;San Francisco, 6 heure du matin. Impossible de dormir plus longtemps, le décalage horaire commence déjà à me jouer des tours.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/6nXI5wW-egUrnaOXTGsgfw?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ43KJC8L1I/AAAAAAAAAc4/8gJr7340p0M/s400/IMG_0255.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Aujourd’hui, petite journée, que du GlassFish pour moi, entrecoupé par la keynote de Larry. Après un premier tour dans la ville histoire de repérer les lieux, je me dirige vers Mason Street pour aller récupérer mon badge au Hilton. Premier effet “Wouaw” c’est la tente Oracle dressée sur Mason Street qui bouche la rue sur un bloc. De quoi faire râler les habitants et les chauffeurs de taxi :)&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/hNEzyaE6TNAs0b-qB6Zwug?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ44zL7XK0I/AAAAAAAAAew/VDSBMIDPeW4/s400/IMG_0292.JPG' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/Mqxn9rDdvlqILWSgfIv53Q?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ45JbXT6vI/AAAAAAAAAfI/IX1mn9lyilg/s400/IMG_0258.JPG' /&gt;&lt;/a&gt;
+&lt;h1 id='glassfish_event'&gt;GlassFish Event&lt;/h1&gt;
+
+&lt;p&gt;Il est 14h00 direction le Moscone Center pour le meeting GlassFish. La nouvelle disposition des sessions dans la ville n’est pas des plus efficaces car il faut 20 bonnes minutes de marche pour rejoindre le Moscone depuis le Hilton. Je parviens malgré tout à arriver à la salle à l’heure et j’y retrouve quelques têtes connues telles qu’Eduardo, Adam Bien, Alexis, etc …&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/mnGf2XYb-Bp79m3GK6VdjA?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ45iRSa5xI/AAAAAAAAAfk/Wi7HGeV1VVI/s400/IMG_0260.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Ambiance détendue pendant cette session qui a commencé par un petit récapitulatif sur l’année passée avec GlassFish, sur Java EE 6, les nouvelles features et sur les contributions en général. Une session de démo a permis de dévoiler certaines nouvelles fonctionnalités pour la version 3.1 (notamment la contribution de SERLI, le versioning d’application), puis le meeting s’est transformé en forum ou les gens ont pu parler des différents sujets liés au serveur comme GlassFish dans le cloud, l’adoption de Java EE 6 en entreprise, participer à GlassFish, etc …&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/g2sE8BkEzEox4TZ4JPQotQ?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ45RT_9eOI/AAAAAAAAAfQ/9YAPnFSjnBM/s400/IMG_0262.JPG' /&gt;&lt;/a&gt;
+&lt;h1 id='keynote'&gt;Keynote&lt;/h1&gt;
+
+&lt;p&gt;Au revoir l’ambiance chaleureuse et confinée du meeting GlassFish et place à la Keynote Oracle Open World dans le Hall D du Moscone Center. Fun fact et deuxième effet “Wouaw”, juste devant la salle, quatre armures Iron Man sont exposées comme si elles étaient entreposées dans l’atelier de Tony Stark. Apparemment il faut que ça en jète et jusqu’ici c’est réussi.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/a8t1Bf6xUYz7xIdPAy3rYw?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ44k1fK0cI/AAAAAAAAAec/jzDQ-LeHu8I/s400/IMG_0271.JPG' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/XMeguxYadzFaZUQLrXlKcg?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ4zgSkIOII/AAAAAAAAAZ4/wHdwfW0qmrw/s400/IMG_0325.JPG' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/Iv1pTvJFeBzBINWYMBZyNQ?feat=embedwebsite'&gt;&lt;img src='http://lh6.ggpht.com/_41-FQi25q3g/TJ40eGEDzAI/AAAAAAAAAas/scPhJ2AcUDQ/s400/IMG_0327.JPG' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/4wleX3CGcF7QrPTU1qINpw?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ41_mKk3yI/AAAAAAAAAb0/ox9RkWay-os/s400/IMG_0331.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Arrivé dans la salle, je tente de me trouver une place sympa, les meilleurs sièges sont déjà pris et pourtant il doit en rester des milliers de libre. Le show commence avec quelques nombres sur le conférence. 41 000 personnes attendues et quelques dizaines de milliers de tasse de café distribuées. En effet, c’est vraiment énorme.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/3FnOo9rt2ct9lchNLP67gQ?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ449elUhBI/AAAAAAAAAe4/-UWtiEytggc/s400/IMG_0267.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;Et là c’est le drame. Les gens de HP arrivent sur scène, c’est ennuyeux, c’est corporate, bref vraiment pas intéressant.&lt;/p&gt;
+
+&lt;p&gt;Après une jolie vidéo projetée sur les 6 écrans géant de la salle et retraçant la victoire de l’équipe américaine lors de l’america’s cup, Larry Ellison arrive enfin sur scène et commence à parler cloud computing, les différentes approches possibles et utilisées par différents acteurs. Tout ca pour lancer le nouveau produit Oracle, le serveur Exalogic.&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/I0msp4MF8wz_Fx_wQxBRJA?feat=embedwebsite'&gt;&lt;img src='http://lh5.ggpht.com/_41-FQi25q3g/TJ4z2ums9PI/AAAAAAAAAaI/8ohNwuCvkgQ/s400/IMG_0323.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;En gros, le concept principal de la chose est “le cloud dans une boîte”. La machine est consituée de 30 serveurs octo-core, quelques Teraoctets de mémoire, du réseau qui va vite avec InfiniBand et plein de cache avec Coherence. Avec ca, on peut faire tourner des machines virtuelles et faire varier le nombre d’instances en fonction de la charge sur le serveur. En plus de cela, Larry présente les nouvelles applications fusion et le nouveau kernel Linux “incassable”.&lt;/p&gt;
+
+&lt;p&gt;Malgré tout cela Larry a été très long, très (trop?) technique, et a trop répété les mêmes choses. Le résultat n’a pas tardé à arriver, les gens dans la salle se sont rapidement ennuyés et sont massivement partis avant la fin. J’ai également profité d’une pause entre deux nouveaux produits pour rejoindre la soirée GlassFish.&lt;/p&gt;
+
+&lt;h1 id='glassfish_party'&gt;GlassFish Party&lt;/h1&gt;
+
+&lt;p&gt;Après la keynote (-pendant-), direction le Thirsty Bear pour la soirée GlassFish. La hasard aidant, le premier groupe de personne que je croise est le clan des français avec Alexis Moussine-Pouchkine et Jérôme Dochez de l’équipe GlassFish, ainsi que Guillaume Bort et Nicolas Leroux de Play Framework.&lt;/p&gt;
+
+&lt;p&gt;La soirée est vraiment sympa (la bière aussi) et a été l’occasion également de rencontrer du beau monde comme Jean-François Arcand (Atmosphere), Kosuke Kawaguchi (InfraDNA, Hudson), David Booth (JRebel), Kirk Perperdine, Eduardo Pellegri Lleopard, Adam Bien, Ludovic Champenois, etc …&lt;/p&gt;
+
+&lt;p&gt;L’invité surprise de la soirée a été James Gosling a qui j’ai pu offrir une bière (pour l’aider à accepter une invitation au Poitou-Charentes &lt;span class='caps'&gt;JUG&lt;/span&gt;). J&amp;#8217;ai même réussi a soutirer quelques autographes pour satisfaires certains collègues (François si tu m&amp;#8217;entends :)&lt;/p&gt;
+
+&lt;p&gt;En bref une super soirée, bravo a toute l’équipe GlassFish&lt;/p&gt;
+&lt;a href='http://picasaweb.google.com/lh/photo/zStS2wANp3fGSzrL4zmPSg?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ44cI8M17I/AAAAAAAAAeU/JVUfa3FVtXw/s400/IMG_0272.JPG' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/U_fzx8RKsZBJxRUfCfBJvQ?feat=embedwebsite'&gt;&lt;img src='http://lh4.ggpht.com/_41-FQi25q3g/TJ42xCAhouI/AAAAAAAAAcg/9IFqPPpikiA/s400/pxxg.jpg' /&gt;&lt;/a&gt;&lt;a href='http://picasaweb.google.com/lh/photo/BuyzUONtt6waQo63sL9nsA?feat=embedwebsite'&gt;&lt;img src='http://lh3.ggpht.com/_41-FQi25q3g/TJ44JsluSmI/AAAAAAAAAeA/jSux0ajr6O4/s400/IMG_0276.JPG' /&gt;&lt;/a&gt;</content>
+ </entry>
+ 
+ 
+</feed>
